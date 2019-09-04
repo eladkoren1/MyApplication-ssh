@@ -14,6 +14,7 @@ import com.jcraft.jsch.Session;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 handleSendText(intent);
             }
         }
-        final String command1 = "/root/download_yt.sh " + result;
-        final String command2 = "wall " + result;
+        final String command1 = "/root/download_yt.sh " + "\"" + result + "\"";
+        final String command2 = "wall " + "\"" + result + "\"";
         btn = findViewById(R.id.button2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                                             executeRemoteCommand(  "root",
                                                                             "tkgseuri13",
                                                                             "mr-robot.ddns.net",
-                                                                            command2,
+                                                                            command1,
                                                                                 22);
                                             //resultSsh.setText(result);
                                 } catch (Exception e) {
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
             result = sharedText;
+            Log.d("Share test", result);
+
 
         }
     }

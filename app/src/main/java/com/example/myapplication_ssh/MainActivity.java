@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 handleSendText(intent);
             }
         }
-        final String command1 = "/root/download_yt.sh " + "\"" + result + "\"";
-        final String command2 = "wall " + "\"" + result + "\"";
+        final String downloadYtCommand = "/root/download_yt.sh " + "\"" + result + "\"";
+        final String wallCommandq = "wall " + "\"" + result + "\"";
         btn = findViewById(R.id.button2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                                             executeRemoteCommand(  "root",
                                                                             "tkgseuri13",
                                                                             "mr-robot.ddns.net",
-                                                                            command1,
+                                                                            downloadYtCommand,
                                                                                 22);
                                             //resultSsh.setText(result);
                                 } catch (Exception e) {

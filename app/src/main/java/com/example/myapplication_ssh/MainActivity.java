@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
@@ -43,13 +40,18 @@ public class MainActivity extends AppCompatActivity {
                 handleSendText(intent);
             }
         }
+
         final String downloadYtCommand = "/root/download_yt.sh " + "\"" + result + "\"";
         final String wallCommandq = "wall " + "\"" + result + "\"";
         btn = findViewById(R.id.button2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        new AsyncTask<Integer, Void, Void>(){
+                SendSSHAsyncTask sendToNanopiAsyncTask =new SendSSHAsyncTask();
+                sendToNanopiAsyncTask.execute(downloadYtCommand);
+            }
+        });
+                        /*new AsyncTask<Integer, Void, Void>(){
                             @SuppressLint("WrongThread")
                             @Override
                             protected Void doInBackground(Integer... params) {
@@ -68,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }.execute(1);
                     }
-                });
-
+                });*/
     }
+
 
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -134,4 +136,21 @@ public class MainActivity extends AppCompatActivity {
         //channelssh.disconnect();
         return baos.toString();
     }
-}
+        private static class SendSSHAsyncTask extends AsyncTask<String, String, Void> {
+
+            protected Void doInBackground(String... strings) {
+
+                try {
+                    executeRemoteCommand("root",
+                            "tkgseuri13",
+                            "mr-robot.ddns.net",
+                            strings[0],
+                            22);
+                    //resultSsh.setText(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+    }
